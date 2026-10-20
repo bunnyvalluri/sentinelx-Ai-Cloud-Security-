@@ -4367,8 +4367,8 @@ html, body, #root {
 /* Reveal animation - elements hidden until JS makes them visible */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  transform: translateY(16px);
+  transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1);
 }
 .reveal.visible {
   opacity: 1;
@@ -4401,7 +4401,17 @@ html, body, #root {
     display: none !important;
   }
   .marketing-nav-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .marketing-nav-right .sign-in-link,
+  .marketing-nav-right .get-demo-link,
+  .marketing-nav-right .get-demo-btn {
     display: none !important;
+  }
+  .marketing-hamburger {
+    display: flex !important;
   }
 }
 

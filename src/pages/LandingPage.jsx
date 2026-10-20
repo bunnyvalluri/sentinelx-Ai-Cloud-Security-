@@ -188,7 +188,7 @@ export default function LandingPage() {
   /* Typewriter terminal */
   useEffect(() => {
     if (visibleLines < TERMINAL_LINES.length) {
-      const t = setTimeout(() => setVisibleLines(v => v + 1), 380);
+      const t = setTimeout(() => setVisibleLines(v => v + 1), 180);
       return () => clearTimeout(t);
     }
   }, [visibleLines]);
@@ -197,11 +197,9 @@ export default function LandingPage() {
   useEffect(() => {
     const id = setInterval(() => {
       setActiveReview(v => (v + 1) % TESTIMONIALS.length);
-    }, 5000);
+    }, 3200);
     return () => clearInterval(id);
   }, []);
-
-
 
   /* Particle canvas */
   useEffect(() => {
@@ -214,8 +212,8 @@ export default function LandingPage() {
     const particles = Array.from({ length: 60 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
       r: Math.random() * 1.5 + 0.5,
       alpha: Math.random() * 0.4 + 0.1,
       color: ['#8b5cf6', '#38bdf8', '#10b981', '#a78bfa'][Math.floor(Math.random() * 4)],
@@ -272,7 +270,7 @@ export default function LandingPage() {
 
   return (
     <MarketingLayout>
-      <div style={{ overflowX: 'hidden' }}>
+      <div>
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -599,8 +597,8 @@ export default function LandingPage() {
 
           .reveal {
             opacity: 0;
-            transform: translateY(32px);
-            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+            transform: translateY(16px);
+            transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1);
           }
           .reveal.visible {
             opacity: 1;
@@ -897,7 +895,7 @@ export default function LandingPage() {
             WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
           }}>
             <div
-              style={{ display: 'flex', gap: 12, width: 'max-content', animation: 'marquee-l 32s linear infinite' }}
+              style={{ display: 'flex', gap: 12, width: 'max-content', animation: 'marquee-l 16s linear infinite' }}
               onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
               onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
             >

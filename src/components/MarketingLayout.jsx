@@ -60,8 +60,7 @@ export default function MarketingLayout({ children }) {
 
   // Scroll-reveal observer - re-runs on route change
   useEffect(() => {
-    // Small delay to let React finish rendering new page content
-    const timer = setTimeout(() => {
+    const triggerReveals = () => {
       const els = document.querySelectorAll('.reveal:not(.visible)');
       const obs = new IntersectionObserver(
         entries => entries.forEach(e => {
@@ -70,11 +69,12 @@ export default function MarketingLayout({ children }) {
             obs.unobserve(e.target);
           }
         }),
-        { threshold: 0.05, rootMargin: '100px 0px 0px 0px' }
+        { threshold: 0.01, rootMargin: '400px 0px 400px 0px' }
       );
       els.forEach(el => obs.observe(el));
-      return () => obs.disconnect();
-    }, 80);
+    };
+    triggerReveals();
+    const timer = setTimeout(triggerReveals, 30);
     return () => clearTimeout(timer);
   }, [pathname]);
 
@@ -437,11 +437,11 @@ export default function MarketingLayout({ children }) {
 
         .marketing-hamburger {
           display: none;
-          background: rgba(255,255,255,0.06);
+          background: var(--bg-card);
           border: 1px solid var(--border-light);
           border-radius: 9px;
-          width: 40px;
-          height: 40px;
+          width: 38px;
+          height: 38px;
           padding: 0;
           align-items: center;
           justify-content: center;
@@ -454,7 +454,7 @@ export default function MarketingLayout({ children }) {
 
         .marketing-hamburger span {
           display: block;
-          width: 20px;
+          width: 18px;
           height: 2px;
           background: var(--text-primary);
           border-radius: 2px;
@@ -507,8 +507,19 @@ export default function MarketingLayout({ children }) {
             display: none !important;
           }
           .marketing-nav {
-            height: 60px;
-            padding: 0 12px;
+            height: 56px !important;
+            padding: 0 16px !important;
+          }
+          .marketing-nav-right {
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+          }
+          .marketing-hamburger {
+            display: flex !important;
+          }
+          .theme-toggle {
+            display: inline-flex !important;
           }
         }
 
@@ -524,104 +535,133 @@ export default function MarketingLayout({ children }) {
             display: none !important;
           }
         }
+
+        .marketing-header-wrapper {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          z-index: 1000;
+        }
+
+        .marketing-main-content {
+          padding-top: 106px;
+        }
+
+        .marketing-main-content.announcement-hidden {
+          padding-top: 68px !important;
+        }
+
+        @media (max-width: 768px) {
+          .marketing-main-content,
+          .marketing-main-content.announcement-hidden {
+            padding-top: 56px !important;
+          }
+        }
       `}</style>
 
-      {/* ── Scroll Progress ── */}
-      <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }} />
+      {/* ── Fixed Header Wrapper ── */}
+      <header className="marketing-header-wrapper">
+        {/* ── Scroll Progress ── */}
+        <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }} />
 
-      {/* ── Announcement Banner ── */}
-      {announcementVisible && (
-        <div className="announcement-bar">
-          <span style={{ background: 'linear-gradient(90deg,#8b5cf6,#38bdf8)', color: '#fff', borderRadius: 100, padding: '2px 11px', fontSize: 10, fontWeight: 800, letterSpacing: 0.6 }}>NEW</span>
-          <span>SentinelX 4.0 is here — CEREBRO AI with real-time threat correlation.</span>
-          <Link to="/features" style={{ color: '#a78bfa', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }}
-            onMouseEnter={e => e.currentTarget.style.color = '#c4b5fd'}
-            onMouseLeave={e => e.currentTarget.style.color = '#a78bfa'}>
-            See what's new
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+        {/* ── Announcement Banner ── */}
+        {announcementVisible && (
+          <div className="announcement-bar">
+            <span style={{ background: 'linear-gradient(90deg,#8b5cf6,#38bdf8)', color: '#fff', borderRadius: 100, padding: '2px 11px', fontSize: 10, fontWeight: 800, letterSpacing: 0.6 }}>NEW</span>
+            <span>SentinelX 4.0 is here — CEREBRO AI with real-time threat correlation.</span>
+            <Link to="/features" style={{ color: '#a78bfa', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.color = '#c4b5fd'}
+              onMouseLeave={e => e.currentTarget.style.color = '#a78bfa'}>
+              See what's new
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </Link>
+            <button className="close-announcement" onClick={() => setAnnouncementVisible(false)}>✕</button>
+          </div>
+        )}
+
+        {/* ── Navbar ── */}
+        <nav
+          ref={navRef}
+          className="marketing-nav"
+          style={{
+            position: 'relative',
+            width: '100%',
+            zIndex: 100,
+            borderBottom: theme === 'light'
+              ? (scrolled ? '1px solid rgba(0, 0, 0, 0.12)' : '1px solid rgba(0, 0, 0, 0.06)')
+              : (scrolled ? '1px solid rgba(255, 255, 255, 0.10)' : '1px solid rgba(255, 255, 255, 0.05)'),
+            backdropFilter: 'blur(24px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            background: theme === 'light'
+              ? (scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.90)')
+              : (scrolled ? 'rgba(8, 8, 14, 0.95)' : 'rgba(8, 8, 14, 0.75)'),
+            transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+            boxShadow: scrolled
+              ? (theme === 'light'
+                  ? '0 4px 20px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04)'
+                  : '0 4px 30px rgba(0, 0, 0, 0.5)')
+              : (theme === 'light' ? '0 1px 2px rgba(0, 0, 0, 0.02)' : 'none'),
+          }}>
+
+          {/* Logo */}
+          <Link to="/" className="marketing-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Logo layout="horizontal" size={28} glow={true} />
           </Link>
-          <button className="close-announcement" onClick={() => setAnnouncementVisible(false)}>✕</button>
-        </div>
-      )}
 
-      {/* ── Navbar ── */}
-      <nav
-        ref={navRef}
-        className="marketing-nav"
-        style={{
-          position: 'sticky', top: 0, zIndex: 100,
-          borderBottom: theme === 'light'
-            ? (scrolled ? '1px solid rgba(0, 0, 0, 0.12)' : '1px solid rgba(0, 0, 0, 0.06)')
-            : (scrolled ? '1px solid rgba(255, 255, 255, 0.10)' : '1px solid rgba(255, 255, 255, 0.05)'),
-          backdropFilter: 'blur(24px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-          background: theme === 'light'
-            ? (scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.90)')
-            : (scrolled ? 'rgba(8, 8, 14, 0.95)' : 'rgba(8, 8, 14, 0.75)'),
-          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-          boxShadow: scrolled
-            ? (theme === 'light'
-                ? '0 4px 20px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04)'
-                : '0 4px 30px rgba(0, 0, 0, 0.5)')
-            : (theme === 'light' ? '0 1px 2px rgba(0, 0, 0, 0.02)' : 'none'),
-        }}>
+          {/* Desktop nav */}
+          <div className="marketing-nav-links">
+            {NAV_LINKS.map(l => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className={`ml-nav-link ${pathname === l.to ? 'active' : ''}`}
+                style={{
+                  color: pathname === l.to ? 'var(--text-primary)' : 'var(--text-secondary)',
+                  background: pathname === l.to ? 'rgba(139,92,246,0.1)' : 'transparent',
+                }}
+                onMouseEnter={e => {
+                  if (pathname !== l.to) {
+                    e.currentTarget.style.color = 'var(--text-primary)';
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (pathname !== l.to) {
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.background = 'transparent';
+                  }
+                }}
+              >{l.label}</Link>
+            ))}
+          </div>
 
-        {/* Logo */}
-        <Link to="/" className="marketing-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Logo layout="horizontal" size={28} glow={true} />
-        </Link>
-
-        {/* Desktop nav */}
-        <div className="marketing-nav-links">
-          {NAV_LINKS.map(l => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className={`ml-nav-link ${pathname === l.to ? 'active' : ''}`}
-              style={{
-                color: pathname === l.to ? 'var(--text-primary)' : 'var(--text-secondary)',
-                background: pathname === l.to ? 'rgba(139,92,246,0.1)' : 'transparent',
-              }}
-              onMouseEnter={e => {
-                if (pathname !== l.to) {
-                  e.currentTarget.style.color = 'var(--text-primary)';
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-                }
-              }}
-              onMouseLeave={e => {
-                if (pathname !== l.to) {
-                  e.currentTarget.style.color = 'var(--text-secondary)';
-                  e.currentTarget.style.background = 'transparent';
-                }
-              }}
-            >{l.label}</Link>
-          ))}
-        </div>
-
-        {/* Right side controls (theme toggle always visible; hamburger on mobile) */}
-        <div className="marketing-nav-right" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Link to="/login" className="sign-in-link">Sign In</Link>
-          <button className="theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
-            <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
-            <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
-          </button>
-          <Link to="/login" className="get-demo-link" style={{ textDecoration: 'none' }}>
-            <button className="get-demo-btn">
-              Get a Demo
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          {/* Right side controls (theme toggle always visible; hamburger on mobile) */}
+          <div className="marketing-nav-right" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Link to="/login" className="sign-in-link">Sign In</Link>
+            <button className="theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
+              <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
+              <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
             </button>
-          </Link>
+            <Link to="/login" className="get-demo-link" style={{ textDecoration: 'none' }}>
+              <button className="get-demo-btn">
+                Get a Demo
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </button>
+            </Link>
 
-          {/* Mobile hamburger */}
-          <button
-            className={`marketing-hamburger ${mobileOpen ? 'sidebar-open' : ''}`}
-            onClick={() => setMobileOpen(o => !o)}
-            aria-label="Toggle menu"
-          >
-            <span /><span /><span />
-          </button>
-        </div>
-      </nav>
+            {/* Mobile hamburger */}
+            <button
+              className={`marketing-hamburger ${mobileOpen ? 'sidebar-open' : ''}`}
+              onClick={() => setMobileOpen(o => !o)}
+              aria-label="Toggle menu"
+            >
+              <span /><span /><span />
+            </button>
+          </div>
+        </nav>
+      </header>
 
       {/* ── Senior UI/UX Clean Mobile Navigation ── */}
       <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
@@ -674,7 +714,7 @@ export default function MarketingLayout({ children }) {
       </div>
 
       {/* ── Content ── */}
-      <main style={{ position: 'relative', zIndex: 1 }}>{children}</main>
+      <main className={`marketing-main-content ${!announcementVisible ? 'announcement-hidden' : ''}`} style={{ position: 'relative', zIndex: 1 }}>{children}</main>
 
       {/* ── Premium Footer ── */}
       <footer style={{
