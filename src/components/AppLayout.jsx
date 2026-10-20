@@ -157,7 +157,23 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => { const t = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(t); }, []);
-  // Removed setSidebarOpen in useEffect, we'll handle this purely when clicking Links or via close button
+
+  // Close sidebar on route change
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
+
+  // Lock background scroll when mobile sidebar drawer is open
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [sidebarOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -299,19 +315,19 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
         }} />
 
         {/* Left */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0, flex: '1 1 auto' }}>
           <button
             className="hamburger-btn"
             onClick={() => setSidebarOpen(true)}
             aria-label="Open menu"
-            style={{ display: sidebarOpen ? 'none' : 'flex' }}
+            style={{ display: sidebarOpen ? 'none' : 'flex', flexShrink: 0 }}
           >
             <span /><span /><span />
           </button>
 
-          <div style={{ transform: sidebarOpen ? 'translateX(0)' : 'translateX(0)', transition: 'transform 0.4s' }}>
+          <div style={{ minWidth: 0, overflow: 'hidden' }}>
             {pageTitle && (
-              <div style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: 'var(--text-primary)', lineHeight: 1.2, letterSpacing: '-0.2px' }}>
+              <div className="topbar-page-title" style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: 'var(--text-primary)', lineHeight: 1.2, letterSpacing: '-0.2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {pageTitle}
               </div>
             )}
@@ -328,7 +344,7 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
         </div>
 
         {/* Right */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="topbar-right" style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
           {/* Search */}
           <div className="search-input topbar-search" style={{ width: 230 }}>
             <Icons.Search />

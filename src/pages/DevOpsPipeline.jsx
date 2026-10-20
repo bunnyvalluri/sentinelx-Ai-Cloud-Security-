@@ -63,27 +63,28 @@ export default function DevOpsPipeline() {
   return (
     <AppLayout title="CI/CD & Deployments" subtitle="Automated pipelines, test coverage, and security gates" bgClass="bg-gradient-analytics">
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginBottom: 28 }}>
+      <div className="grid-4" style={{ marginBottom: 24 }}>
         {[
           { label: 'ACTIVE BUILDS', val: '1', color: '#38bdf8' },
           { label: 'DEPLOYMENT FREQUENCY', val: '42/day', color: '#4ade80' },
           { label: 'AVG TEST COVERAGE', val: '94.2%', color: '#f59e0b' },
           { label: 'CRITICAL VULNS', val: '0', color: '#4ade80' }
         ].map(s => (
-          <div key={s.label} className="metric-card" style={{ padding: 24, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16 }}>
+          <div key={s.label} className="metric-card" style={{ padding: 'clamp(14px, 3vw, 24px)', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1, color: 'var(--text-muted)', marginBottom: 8 }}>{s.label}</div>
-            <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 32, fontWeight: 800, color: s.color }}>{s.val}</div>
+            <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(24px, 4vw, 32px)', fontWeight: 800, color: s.color }}>{s.val}</div>
           </div>
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
+      <div className="responsive-split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
         {/* Pipeline List */}
-        <div className="card" style={{ overflow: 'hidden' }}>
+        <div className="card" style={{ overflow: 'hidden', minWidth: 0 }}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', background: 'rgba(56,189,248,.03)', fontSize: 14, fontWeight: 700, color: '#fff' }}>
             Active Pipelines
           </div>
-          <table className="data-table">
+          <div className="table-wrapper">
+            <table className="data-table">
             <thead>
               <tr>
                 <th>SERVICE</th>
@@ -128,6 +129,7 @@ export default function DevOpsPipeline() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
 
         {/* Live Build Terminal */}

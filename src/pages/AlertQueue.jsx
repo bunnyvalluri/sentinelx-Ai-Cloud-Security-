@@ -139,13 +139,13 @@ export default function AlertQueue() {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 24 }}>
+      <div className="responsive-split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 24 }}>
 
         {/* Main Feed */}
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 24, fontWeight: 800, color: '#fff' }}>
+        <div style={{ minWidth: 0 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 800, color: '#fff', margin: 0 }}>
                 {alerts.length} Active Threats
               </h2>
               <div style={{ display: 'flex', gap: 8 }}>

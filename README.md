@@ -2,7 +2,7 @@
 
 > Real-time AI-powered cloud security monitoring, threat detection, compliance and user access management — built for enterprise teams.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-sentinelx--platform.vercel.app-8b5cf6?style=for-the-badge&logo=vercel)](https://sentinelx-platform.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-sentinelx--platform.netlify.app-00C7B7?style=for-the-badge&logo=netlify)](https://sentinelx-platform.netlify.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Bunnyvalluri-181717?style=for-the-badge&logo=github)](https://github.com/Bunnyvalluri/sentinelx-Ai-Cloud-Security-)
 
 ---
@@ -11,7 +11,7 @@
 
 | | URL |
 |---|---|
-| **Production** | https://sentinelx-platform.vercel.app |
+| **Production** | https://sentinelx-platform.netlify.app |
 | **GitHub Repo** | https://github.com/Bunnyvalluri/sentinelx-Ai-Cloud-Security- |
 
 ---
@@ -39,7 +39,7 @@
 | **Styling** | Vanilla CSS + TailwindCSS |
 | **Smooth Scroll** | Lenis (`@studio-freight/lenis`) |
 | **AI / LLM** | NVIDIA NIM API + Google Gemini |
-| **Deployment** | Vercel (auto-deploy from GitHub) |
+| **Deployment** | Netlify (auto-deploy from GitHub) |
 | **Fonts** | Inter · JetBrains Mono · Outfit (Google Fonts) |
 
 ---
@@ -130,11 +130,12 @@ src/
 
 ## 🚢 Deployment
 
-The project auto-deploys to Vercel on every `git push` to `master`.
+The project auto-deploys to Netlify on every `git push` to `master` (configured via `netlify.toml`).
 
 ```bash
-# Manual deploy
-vercel --prod
+# Manual deploy via Netlify CLI
+npm install -g netlify-cli
+netlify deploy --prod
 ```
 
 ---

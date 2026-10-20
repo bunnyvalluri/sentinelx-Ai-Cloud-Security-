@@ -246,10 +246,10 @@ export default function Dashboard() {
       </div>
 
       {/* ── Main charts ── */}
-      <div className="dashboard-chart-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 18, marginBottom: 18 }}>
+      <div className="dashboard-chart-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 18, marginBottom: 18 }}>
         {/* Network Traffic chart */}
-        <div className="card" style={{ padding: '22px 24px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+        <div className="card" style={{ padding: 'clamp(14px, 3vw, 24px)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
             <div>
               <div className="hero-text-primary" style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 4, height: 18, background: 'var(--blue)', borderRadius: 2, display: 'inline-block' }} />
@@ -257,8 +257,8 @@ export default function Dashboard() {
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Inbound Packets vs Blocked Threats (Real-time)</div>
             </div>
-            <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-              <div style={{ display: 'flex', gap: 12, fontSize: 11, marginRight: 12, color: 'var(--text-muted)' }}>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 12, fontSize: 11, marginRight: 8, color: 'var(--text-muted)' }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} /> Traffic</span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444' }} /> Blocked</span>
               </div>
@@ -268,7 +268,7 @@ export default function Dashboard() {
                   onClick={() => handleTimeRangeChange(t)}
                   className={`btn btn-outline ${state.timeRange === t ? 'active' : ''}`}
                   style={{
-                    padding: '4px 12px',
+                    padding: '4px 10px',
                     fontSize: 11,
                     background: state.timeRange === t ? 'var(--blue-dim)' : '',
                     color: state.timeRange === t ? 'var(--blue-light)' : '',
@@ -284,7 +284,7 @@ export default function Dashboard() {
         </div>
 
         {/* Geographic Origins */}
-        <div className="card" style={{ padding: '22px 20px' }}>
+        <div className="card" style={{ padding: 'clamp(14px, 3vw, 22px)' }}>
           <div className="hero-text-primary" style={{ fontWeight: 700, fontFamily: 'Outfit, sans-serif', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 15 }} role="img" aria-label="Globe">🌐</span> Geographic Origins
           </div>
@@ -298,12 +298,12 @@ export default function Dashboard() {
       </div>
 
       {/* ── AI Insight banner ── */}
-      <div className="card" style={{ padding: '16px 20px', marginBottom: 18, border: '1px solid rgba(16, 185, 129,0.3)', background: 'linear-gradient(90deg, rgba(16, 185, 129,0.08) 0%, rgba(20, 24, 38,0.4) 100%)', boxShadow: '0 0 32px rgba(16, 185, 129, 0.05) inset' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+      <div className="card" style={{ padding: 'clamp(14px, 3vw, 20px)', marginBottom: 18, border: '1px solid rgba(16, 185, 129,0.3)', background: 'linear-gradient(90deg, rgba(16, 185, 129,0.08) 0%, rgba(20, 24, 38,0.4) 100%)', boxShadow: '0 0 32px rgba(16, 185, 129, 0.05) inset' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, flexWrap: 'wrap' }}>
           <div style={{ width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg, #10b981, #2dd4bf)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 20, boxShadow: '0 8px 16px rgba(16, 185, 129, 0.25)' }}>
             <span style={{ animation: 'pulse 2s infinite' }} role="img" aria-label="Brain">🧠</span>
           </div>
-          <div style={{ flex: 1, marginTop: 2 }}>
+          <div style={{ flex: '1 1 260px', marginTop: 2, minWidth: 0 }}>
             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.5, color: '#10b981', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
               <span style={{ display: 'inline-block', width: 6, height: 6, background: '#10b981', borderRadius: '50%', animation: 'blink 1s infinite' }} />
               CEREBRO AI INTELLIGENCE
@@ -327,15 +327,15 @@ export default function Dashboard() {
 
       {/* ── Live Incident Feed ── */}
       <div className="card" style={{ overflow: 'hidden' }}>
-        <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: 'clamp(14px, 3vw, 20px)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <div>
             <div className="hero-text-primary" style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ color: 'var(--yellow)' }} role="img" aria-label="Warning">⚠</span> Live Incident Feed
             </div>
             <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Critical Events Requiring Immediate Attention</div>
           </div>
-          <div style={{ display: 'flex', gap: 10 }}>
-            <button onClick={() => navigate('/logs?filter=critical')} className="btn btn-outline" style={{ fontSize: 12, padding: '6px 14px' }}>⚙ FILTER</button>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <button onClick={() => navigate('/logs?filter=critical')} className="btn btn-outline" style={{ fontSize: 12, padding: '6px 12px' }}>⚙ FILTER</button>
             <button onClick={() => {
               const element = document.createElement('a');
               const file = new Blob([JSON.stringify(state.events, null, 2)], { type: 'application/json' });
@@ -344,7 +344,7 @@ export default function Dashboard() {
               document.body.appendChild(element);
               element.click();
               document.body.removeChild(element);
-            }} className="btn btn-outline" style={{ fontSize: 12, padding: '6px 14px' }}>⬇ EXPORT LOGS</button>
+            }} className="btn btn-outline" style={{ fontSize: 12, padding: '6px 12px' }}>⬇ EXPORT LOGS</button>
           </div>
         </div>
         <div className="table-wrapper">

@@ -4418,3 +4418,439 @@ html, body, #root {
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ████████ SENIOR UI/UX RESPONSIVE SYSTEM — 100% DEVICE COVERAGE ████████
+   Supports: Small Mobile (320px), Standard Mobile (375-430px),
+             Tablets & iPads (768-1024px), Laptops & MacBooks (1280-1440px),
+             Large Desktops & Ultrawide (1600px+)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. GLOBAL OVERFLOW & VIEWPORT LOCK ── */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure all flex/grid items can shrink gracefully without blowing out containers */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── 2. BULLETPROOF TABLE WRAPPERS ── */
+.table-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch !important;
+  display: block;
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.25);
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.45);
+}
+
+/* ── 3. UNIVERSAL RESPONSIVE SPLIT GRIDS ── */
+.responsive-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 1080px) {
+  .responsive-split-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── 4. CHATBOT RESPONSIVE FIXES ── */
+@media (max-width: 640px) {
+  .floating-chatbot-btn {
+    bottom: 16px !important;
+    right: 16px !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .floating-chatbot-unread {
+    bottom: 58px !important;
+    right: 16px !important;
+  }
+
+  .floating-chatbot-window {
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: calc(100vw - 20px) !important;
+    bottom: 74px !important;
+    height: min(520px, calc(100dvh - 86px)) !important;
+    max-height: calc(100dvh - 86px) !important;
+    border-radius: 16px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .floating-chatbot-window {
+    left: 6px !important;
+    right: 6px !important;
+    max-width: calc(100vw - 12px) !important;
+    bottom: 70px !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* ── 5. LAPTOPS & MACBOOKS (1025px - 1440px) ── */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .page-content {
+    padding: 24px 24px;
+    max-width: 100%;
+  }
+
+  .metric-card {
+    padding: 20px 18px;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}
+
+/* ── 6. TABLETS & IPADS (769px - 1024px) ── */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 280px !important;
+    max-width: 85vw !important;
+    z-index: 1000 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0) !important;
+  }
+
+  .topbar {
+    left: 0 !important;
+    width: 100% !important;
+    padding: 0 16px !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  .page-content {
+    padding: 20px 16px;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Inline grid overrides for tablet */
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .login-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .login-left-panel {
+    display: none !important;
+  }
+
+  .login-right-panel {
+    width: 100% !important;
+    padding: 48px 32px !important;
+  }
+
+  /* Any inline 2-col grids fallback to 1-col */
+  div[style*="gridTemplateColumns: '1fr 3"],
+  div[style*="gridTemplateColumns: '1fr 4"],
+  div[style*="gridTemplateColumns: '2fr 1fr"],
+  div[style*="gridTemplateColumns: '1.5fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── 7. LARGE SMARTPHONES & IPHONES (481px - 768px) ── */
+@media (max-width: 768px) {
+  .topbar {
+    height: 56px !important;
+    padding: 0 12px !important;
+  }
+
+  .topbar-page-title {
+    font-size: 15px !important;
+    max-width: 220px !important;
+  }
+
+  .topbar-search,
+  .topbar-clock,
+  .topbar-help {
+    display: none !important;
+  }
+
+  .page-content {
+    padding: 14px 12px !important;
+  }
+
+  .grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .metric-card {
+    padding: 16px 14px !important;
+    border-radius: 14px !important;
+  }
+
+  /* Marketing nav */
+  .marketing-nav {
+    height: 60px !important;
+    padding: 0 16px !important;
+  }
+
+  .marketing-nav-links,
+  .marketing-nav-right {
+    display: none !important;
+  }
+
+  .marketing-hamburger {
+    display: flex !important;
+  }
+
+  /* Mobile menu with Safe Area support */
+  .mobile-menu {
+    padding: env(safe-area-inset-top, 24px) 20px env(safe-area-inset-bottom, 24px) !important;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .mobile-menu a {
+    font-size: 24px !important;
+    padding: 10px 20px !important;
+  }
+
+  /* Marketing Footer */
+  .marketing-footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 28px 16px !important;
+  }
+
+  /* App footer */
+  .app-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 14px 16px !important;
+    font-size: 11px !important;
+  }
+
+  /* Any inline repeat grids */
+  div[style*="gridTemplateColumns: 'repeat(4, 1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(3, 1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(4,1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(3,1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(6,1fr)'"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* ── 8. STANDARD MOBILE PHONES (381px - 480px) ── */
+@media (max-width: 480px) {
+  .topbar {
+    padding: 0 10px !important;
+  }
+
+  .topbar-page-title {
+    font-size: 14px !important;
+    max-width: 170px !important;
+  }
+
+  .grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  .page-content {
+    padding: 12px 10px !important;
+  }
+
+  .card {
+    border-radius: 14px !important;
+  }
+
+  .metric-card {
+    padding: 14px 12px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Table styling */
+  .data-table th,
+  .data-table td {
+    padding: 10px 10px !important;
+    font-size: 11.5px !important;
+  }
+
+  /* Footer stack */
+  .marketing-footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Login page compact */
+  .login-right-panel {
+    padding: 32px 16px !important;
+  }
+
+  /* Buttons on mobile */
+  .btn {
+    padding: 7px 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* Hero headings */
+  .landing-hero h1 {
+    font-size: clamp(28px, 9vw, 38px) !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .landing-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* Any multi-column inline grids fallback to single column */
+  div[style*="gridTemplateColumns: 'repeat(4, 1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(3, 1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(4,1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(3,1fr)'"],
+  div[style*="gridTemplateColumns: 'repeat(6,1fr)'"] {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+/* ── 9. SMALL MOBILE & FOLDABLES (≤ 380px — iPhone SE, Galaxy Fold) ── */
+@media (max-width: 380px) {
+  .topbar {
+    padding: 0 8px !important;
+  }
+
+  .topbar-page-title {
+    font-size: 13.5px !important;
+    max-width: 135px !important;
+  }
+
+  .topbar-right {
+    gap: 6px !important;
+  }
+
+  .page-content {
+    padding: 10px 6px !important;
+  }
+
+  .metric-card {
+    padding: 12px 10px !important;
+  }
+
+  .landing-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .data-table {
+    min-width: 480px !important;
+  }
+
+  .btn {
+    font-size: 11px !important;
+    padding: 6px 10px !important;
+  }
+}
+
+/* ── 10. SAFE AREA & NOTCH INSET SUPPORT (iOS Safari & Android Edge) ── */
+@supports (padding: env(safe-area-inset-top)) {
+  .topbar {
+    padding-top: env(safe-area-inset-top, 0) !important;
+  }
+
+  .sidebar {
+    padding-top: env(safe-area-inset-top, 0) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0) !important;
+  }
+
+  .app-footer {
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+  }
+
+  .floating-chatbot-btn {
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    right: max(16px, env(safe-area-inset-right, 16px)) !important;
+  }
+}

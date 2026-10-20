@@ -317,6 +317,7 @@ ${ragContext}`;
       {/* ── Trigger Button ── */}
       <button
         onClick={() => setIsOpen(o => !o)}
+        className="floating-chatbot-btn"
         style={{
           position: 'fixed', bottom: 24, right: 24,
           width: 56, height: 56, borderRadius: '50%',
@@ -338,11 +339,11 @@ ${ragContext}`;
 
       {/* Unread indicator */}
       {!isOpen && (
-        <div style={{ position: 'fixed', bottom: 68, right: 22, background: '#22c55e', width: 10, height: 10, borderRadius: '50%', zIndex: 10000, boxShadow: '0 0 8px #22c55e', animation: 'liveRing 2s infinite' }} />
+        <div className="floating-chatbot-unread" style={{ position: 'fixed', bottom: 68, right: 22, background: '#22c55e', width: 10, height: 10, borderRadius: '50%', zIndex: 10000, boxShadow: '0 0 8px #22c55e', animation: 'liveRing 2s infinite' }} />
       )}
 
       {/* ── Chat Window ── */}
-      <div style={{
+      <div className="floating-chatbot-window" style={{
         position: 'fixed', bottom: 96, right: 24,
         width: chatWidth, height: chatHeight,
         maxWidth: 'calc(100vw - 32px)',

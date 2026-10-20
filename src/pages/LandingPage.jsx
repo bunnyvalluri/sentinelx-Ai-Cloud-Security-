@@ -659,85 +659,124 @@ export default function LandingPage() {
         <section
           ref={heroRef}
           className="landing-hero"
-          style={{ position: 'relative', zIndex: 1, paddingBottom: 80 }}
+          style={{ position: 'relative', zIndex: 1, padding: 'clamp(48px, 6vw, 84px) clamp(16px, 3vw, 40px) 60px' }}
         >
 
-          {/* Logo mark */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 44, animation: 'hero-in 0.8s cubic-bezier(0.16,1,0.3,1)' }}>
-            <Logo layout="vertical" size={120} glow={true} />
-          </div>
-
           {/* Badge */}
-          <div style={{ display: 'flex', justifyContent: 'center', animation: 'badge-pop 0.7s 0.2s both' }}>
-            <div className="badge-new" onClick={() => navigate('/features')}>
-              <span className="badge-pill">NEW</span>
-              <span>SentinelX 4.0 — CEREBRO AI is live</span>
-              <span style={{ opacity: 0.5, fontSize: 12 }}>→</span>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24, animation: 'badge-pop 0.7s 0.2s both' }}>
+            <div
+              className="badge-new"
+              onClick={() => navigate('/features')}
+              style={{
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '6px 16px 6px 8px',
+                borderRadius: 100,
+                background: 'rgba(139, 92, 246, 0.08)',
+                border: '1px solid rgba(139, 92, 246, 0.25)',
+                backdropFilter: 'blur(12px)',
+                boxShadow: '0 4px 20px rgba(139, 92, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                transition: 'all 0.25s ease',
+              }}
+            >
+              <span style={{
+                background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                color: '#fff',
+                padding: '3px 10px',
+                borderRadius: 100,
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: '0.6px',
+                boxShadow: '0 0 12px rgba(139, 92, 246, 0.4)',
+              }}>NEW 4.0</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>
+                CEREBRO AI Autonomous Cloud Defense is Live
+              </span>
+              <span style={{ opacity: 0.6, fontSize: 13 }}>→</span>
             </div>
           </div>
 
           {/* H1 */}
           <h1 style={{
             fontFamily: 'Outfit, Inter, sans-serif',
-            fontSize: 'clamp(48px, 9vw, 96px)',
-            fontWeight: 900,
-            lineHeight: 1.02,
-            letterSpacing: '-0.04em',
-            marginBottom: 32,
+            fontSize: 'clamp(36px, 6.2vw, 76px)',
+            fontWeight: 800,
+            lineHeight: 1.12,
+            letterSpacing: '-0.035em',
+            marginBottom: 22,
             animation: 'hero-in 0.9s 0.3s both',
             textAlign: 'center',
-            maxWidth: 900,
-            margin: '0 auto 32px',
+            maxWidth: 920,
+            margin: '0 auto 22px',
           }}>
-            <span style={{ color: 'var(--text-primary)' }}>Security Infrastructure</span>
+            <span style={{
+              background: 'linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block',
+            }}>
+              Security Infrastructure
+            </span>
             <br />
-            <span className="hero-title-glow">for Modern Teams</span>
+            <span style={{
+              background: 'linear-gradient(90deg, #a78bfa 0%, #38bdf8 50%, #2dd4bf 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              filter: 'drop-shadow(0 0 28px rgba(139,92,246,0.3))',
+              display: 'inline-block',
+            }}>
+              for Modern Teams
+            </span>
           </h1>
 
           {/* Subtitle */}
           <p style={{
-            fontSize: 'clamp(17px, 2.2vw, 21px)',
+            fontSize: 'clamp(15px, 1.8vw, 19px)',
             color: 'var(--text-secondary)',
-            maxWidth: 640,
-            margin: '0 auto 52px',
-            lineHeight: 1.8,
+            maxWidth: 620,
+            margin: '0 auto 40px',
+            lineHeight: 1.65,
             fontWeight: 400,
             animation: 'hero-in 0.9s 0.4s both',
             textAlign: 'center',
           }}>
             Monitor, detect, and automatically remediate threats across your entire cloud stack.
-            Powered by <strong style={{ color: 'var(--text-primary)', fontWeight: 700 }}>CEREBRO AI</strong> — processing 1.2B events/hour.
+            Powered by <strong style={{ color: '#fff', fontWeight: 600 }}>CEREBRO AI</strong> — processing 1.2B+ events/hour.
           </p>
 
           {/* CTAs */}
-          <div className="hero-btns" style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', animation: 'hero-in 0.9s 0.5s both', marginBottom: 56 }}>
-            <button className="btn-hero-primary" onClick={() => navigate('/login')}>
+          <div className="hero-btns" style={{ display: 'flex', gap: 14, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', animation: 'hero-in 0.9s 0.5s both', marginBottom: 44 }}>
+            <button className="btn-hero-primary" onClick={() => navigate('/login')} style={{ padding: '13px 28px', fontSize: 14, borderRadius: 10, cursor: 'pointer' }}>
               <span className="glow-dot" />
               Get Started — It's Free
             </button>
-            <button className="btn-hero-outline" onClick={() => navigate('/docs')}>
-              Read the Docs →
+            <button className="btn-hero-outline" onClick={() => navigate('/dashboard')} style={{ padding: '13px 24px', fontSize: 14, borderRadius: 10, cursor: 'pointer' }}>
+              Live Command Center →
             </button>
           </div>
 
           {/* Social proof strip */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, opacity: 0.7, animation: 'hero-in 0.9s 0.65s both', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, opacity: 0.8, animation: 'hero-in 0.9s 0.65s both', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex' }}>
               {['#7c3aed', '#4f46e5', '#38bdf8', '#10b981', '#fbbf24'].map((c, i) => (
                 <div key={c} style={{
-                  width: 32, height: 32, borderRadius: '50%', background: c,
+                  width: 30, height: 30, borderRadius: '50%', background: c,
                   border: '2.5px solid var(--bg-primary)', marginLeft: i === 0 ? 0 : -10,
                   boxShadow: `0 0 16px ${c}60`, zIndex: 5 - i,
                 }} />
               ))}
             </div>
-            <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-secondary)' }}>
+            <span style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--text-secondary)' }}>
               Trusted by <strong style={{ color: 'var(--text-primary)' }}>10,000+</strong> cloud-native teams
             </span>
-            <span style={{ width: 1, height: 18, background: 'var(--border-light)' }} />
-            <div style={{ display: 'flex', gap: 16 }}>
-              {['No credit card', 'Cancel anytime'].map(item => (
-                <span key={item} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--text-muted)', fontWeight: 600 }}>
+            <span style={{ width: 1, height: 16, background: 'var(--border-light)' }} />
+            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+              {['No credit card', 'Cancel anytime', 'SOC2 Certified'].map(item => (
+                <span key={item} style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 12.5, color: 'var(--text-muted)', fontWeight: 600 }}>
                   <span style={{ color: '#10b981', fontSize: 11 }}>✓</span> {item}
                 </span>
               ))}

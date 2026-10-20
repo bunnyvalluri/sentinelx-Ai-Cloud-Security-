@@ -135,10 +135,10 @@ export default function SecurityAnalytics() {
       </div>
 
       {/* Charts */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 20, marginBottom: 20 }}>
+      <div className="responsive-split-grid" style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 20, marginBottom: 20 }}>
         {/* Baseline Deviation */}
-        <div className="card" style={{ padding: '24px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
+        <div className="card" style={{ padding: 'clamp(14px, 3vw, 24px)', minWidth: 0 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
             <div>
               <div style={{ fontFamily: 'Outfit,sans-serif', fontWeight: 800, fontSize: 18, color: '#fff', marginBottom: 4 }}>Anomaly Deviation (30 Days)</div>
               <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>Observed traffic vs AI-predicted baseline</div>
@@ -184,7 +184,8 @@ export default function SecurityAnalytics() {
           </div>
           <button onClick={() => alert('Demo Mode: Feature coming soon!')} className="btn btn-primary" style={{ fontSize: 12 }}>View Inventory</button>
         </div>
-        <table className="data-table">
+        <div className="table-wrapper">
+          <table className="data-table">
           <thead><tr><th>RESOURCE NAME</th><th>RESOURCE TYPE</th><th>ATTACK FREQUENCY</th><th>RISK LEVEL</th><th>PROTECTION STATUS</th><th>ACTIONS</th></tr></thead>
           <tbody>
             {TOP_RESOURCES.map((r) => (
@@ -208,6 +209,7 @@ export default function SecurityAnalytics() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </AppLayout>
   );

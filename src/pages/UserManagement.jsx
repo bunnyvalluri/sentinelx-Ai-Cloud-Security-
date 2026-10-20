@@ -329,17 +329,17 @@ export default function UserManagement() {
       </div>
 
       {/* ── Main layout: table + activity feed ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 20, alignItems: 'start' }}>
+      <div className="responsive-split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 20, alignItems: 'start' }}>
 
         {/* ── User Table ── */}
-        <div className="card" style={{ overflow: 'hidden' }}>
+        <div className="card" style={{ overflow: 'hidden', minWidth: 0 }}>
           {/* Tab row */}
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(91,184,212,.03)' }}>
-            <div style={{ display: 'flex', gap: 4 }}>
+          <div style={{ padding: 'clamp(12px, 3vw, 16px) clamp(14px, 3vw, 20px)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(91,184,212,.03)', flexWrap: 'wrap', gap: 12 }}>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
               {['All', 'Engineering', 'Product/Design', 'QA/DevOps', 'Online', 'High Risk'].map(t => (
                 <button key={t} onClick={() => setTab(t)} className="btn"
                   style={{
-                    padding: '5px 14px', fontSize: 12,
+                    padding: '5px 12px', fontSize: 12,
                     background: tab === t ? 'var(--blue-glow)' : 'transparent',
                     color: tab === t ? 'var(--blue-light)' : 'var(--text-secondary)',
                     border: tab === t ? '1px solid rgba(91,184,212,.3)' : '1px solid transparent',
@@ -353,14 +353,14 @@ export default function UserManagement() {
                 </button>
               ))}
             </div>
-            <div className="search-input">
-              <input placeholder="🔍 Search identity…" style={{ width: 150 }} value={search} onChange={e => setSearch(e.target.value)} />
+            <div className="search-input" style={{ width: 'auto' }}>
+              <input placeholder="🔍 Search identity…" style={{ width: 140 }} value={search} onChange={e => setSearch(e.target.value)} />
             </div>
           </div>
 
           {/* Table */}
-          <div style={{ overflowX: 'auto' }}>
-            <table className="data-table" style={{ minWidth: 700 }}>
+          <div className="table-wrapper">
+            <table className="data-table" style={{ minWidth: 640 }}>
               <thead>
                 <tr>
                   <th>USER IDENTITY</th>

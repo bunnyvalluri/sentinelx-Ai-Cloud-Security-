@@ -82,16 +82,16 @@ export default function LogExplorer() {
   return (
     <AppLayout title="Cloud Log Explorer" subtitle="Real-time auditing and forensic analysis of cloud infrastructure logs." bgClass="bg-gradient-logs">
       {/* Title row */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
         <div>
-          <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 26, fontWeight: 800, color: '#fff' }}>Unified Log Stream</h1>
+          <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 800, color: '#fff', margin: 0 }}>Unified Log Stream</h1>
         </div>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <button onClick={() => setIsLive(!isLive)} className={isLive ? "btn btn-primary" : "btn btn-outline"} style={{ gap: 6 }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button onClick={() => setIsLive(!isLive)} className={isLive ? "btn btn-primary" : "btn btn-outline"} style={{ gap: 6, fontSize: 12, padding: '6px 12px' }}>
             {isLive ? <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#fff', animation: 'pulse 1.5s infinite' }} /> : <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--text-muted)' }} />}
             {isLive ? 'Live Stream' : 'Paused Stream'}
           </button>
-          <button onClick={handleExport} className="btn btn-outline" style={{ gap: 6 }}>⬇ Export CSV</button>
+          <button onClick={handleExport} className="btn btn-outline" style={{ gap: 6, fontSize: 12, padding: '6px 12px' }}>⬇ Export CSV</button>
         </div>
       </div>
 
@@ -118,11 +118,12 @@ export default function LogExplorer() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20 }}>
-        <div>
+      <div className="responsive-split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 20 }}>
+        <div style={{ minWidth: 0 }}>
           {/* Table */}
           <div className="card" style={{ overflow: 'hidden' }}>
-            <table className="data-table">
+            <div className="table-wrapper">
+              <table className="data-table">
               <thead>
                 <tr><th>TIMESTAMP</th><th>SOURCE</th><th>SEVERITY</th><th>EVENT MESSAGE</th><th>RESOURCE ID</th></tr>
               </thead>
@@ -155,7 +156,8 @@ export default function LogExplorer() {
                 })}
               </tbody>
             </table>
-            <div style={{ padding: '12px 20px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-muted)' }}>
+            </div>
+            <div style={{ padding: '12px clamp(12px, 3vw, 20px)', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-muted)', flexWrap: 'wrap', gap: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>Logs per page: 50</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span>{(page - 1) * 50 + 1} – {page * 50} of {logs.length}</span>

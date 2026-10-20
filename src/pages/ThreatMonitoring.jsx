@@ -100,15 +100,15 @@ export default function ThreatMonitoring() {
       </div>
 
       {/* Alert Queue + AI Panel */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 18, marginBottom: 18 }}>
+      <div className="responsive-split-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 18, marginBottom: 18 }}>
         {/* Alert Queue */}
         <div className="card" style={{ overflow: 'hidden' }}>
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: 'clamp(12px, 3vw, 16px) clamp(14px, 3vw, 20px)', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ width: 3, height: 18, background: 'var(--red)', borderRadius: 2, display: 'inline-block' }} />
               <span style={{ fontWeight: 700, fontFamily: 'Outfit,sans-serif', color: '#fff', fontSize: 15 }}>REAL-TIME ALERT QUEUE</span>
             </div>
-            <div style={{ display: 'flex', gap: 6 }}>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
               {['All', 'Active'].map(f => (
                 <button key={f} onClick={() => { setFilter(f); setPage(1); }}
                   className="btn btn-outline"
@@ -119,52 +119,54 @@ export default function ThreatMonitoring() {
               <button onClick={() => setSortAsc(!sortAsc)} className="btn btn-outline" style={{ padding: '4px 10px', fontSize: 14 }}>⇅</button>
             </div>
           </div>
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>SEVERITY</th><th>TIMESTAMP</th><th>SOURCE (CIDR/HOST)</th>
-                <th>EVENT DEFINITION</th><th>SCORE</th><th>STATUS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedAlerts.map((a) => {
-                const s = SEV_STYLE[a.sev] || SEV_STYLE['INFO'];
-                const statC = { OPEN: '#ef4444', INVESTIGATING: '#f59e0b', RESOLVED: '#10b981' }[a.status] || '#10b981';
-                const actualIndex = filteredAlerts.findIndex(f => f === a);
-                const isSelected = selectedAlertIdx === actualIndex;
-                const rowKey = `${a.ts}-${a.src}-${a.def}`;
-                return (
-                  <tr key={rowKey} onClick={() => setSelectedAlertIdx(actualIndex)} style={{ cursor: 'pointer', background: isSelected ? 'rgba(255,255,255,0.04)' : '' }}>
-                    <td>
-                      <span style={{ background: s.bg, color: s.c, border: `1px solid ${s.b}`, padding: '2px 8px', borderRadius: 100, fontSize: 10, fontWeight: 700 }}>{a.sev}</span>
-                    </td>
-                    <td><span className="tag" style={{ color: 'var(--text-muted)', fontSize: 11 }}>{a.ts}</span></td>
-                    <td><span style={{ fontFamily: 'JetBrains Mono', color: 'var(--blue-light)', fontSize: 12 }}>{a.src}</span></td>
-                    <td>
-                      <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: 13 }}>{a.def}</div>
-                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{a.sub}</div>
-                    </td>
-                    <td>
-                      <span style={{ background: a.score >= 80 ? 'var(--red-dim)' : 'var(--yellow-dim)', color: a.score >= 80 ? 'var(--red)' : 'var(--yellow)', border: `1px solid ${a.score >= 80 ? 'rgba(239,68,68,.3)' : 'rgba(245,158,11,.3)'}`, padding: '2px 10px', borderRadius: 6, fontWeight: 700, fontSize: 13, display: 'inline-block' }}>
-                        {a.score}
-                      </span>
-                    </td>
-                    <td>
-                      <span style={{ background: `${statC}15`, color: statC, border: `1px solid ${statC}40`, padding: '3px 10px', borderRadius: 100, fontSize: 10, fontWeight: 700 }}>
-                        {a.status}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-              {paginatedAlerts.length === 0 && (
+          <div className="table-wrapper">
+            <table className="data-table">
+              <thead>
                 <tr>
-                  <td colSpan={6} style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>No alerts found in this view.</td>
+                  <th>SEVERITY</th><th>TIMESTAMP</th><th>SOURCE (CIDR/HOST)</th>
+                  <th>EVENT DEFINITION</th><th>SCORE</th><th>STATUS</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-          <div style={{ padding: '12px 20px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--text-muted)', alignItems: 'center' }}>
+              </thead>
+              <tbody>
+                {paginatedAlerts.map((a) => {
+                  const s = SEV_STYLE[a.sev] || SEV_STYLE['INFO'];
+                  const statC = { OPEN: '#ef4444', INVESTIGATING: '#f59e0b', RESOLVED: '#10b981' }[a.status] || '#10b981';
+                  const actualIndex = filteredAlerts.findIndex(f => f === a);
+                  const isSelected = selectedAlertIdx === actualIndex;
+                  const rowKey = `${a.ts}-${a.src}-${a.def}`;
+                  return (
+                    <tr key={rowKey} onClick={() => setSelectedAlertIdx(actualIndex)} style={{ cursor: 'pointer', background: isSelected ? 'rgba(255,255,255,0.04)' : '' }}>
+                      <td>
+                        <span style={{ background: s.bg, color: s.c, border: `1px solid ${s.b}`, padding: '2px 8px', borderRadius: 100, fontSize: 10, fontWeight: 700 }}>{a.sev}</span>
+                      </td>
+                      <td><span className="tag" style={{ color: 'var(--text-muted)', fontSize: 11 }}>{a.ts}</span></td>
+                      <td><span style={{ fontFamily: 'JetBrains Mono', color: 'var(--blue-light)', fontSize: 12 }}>{a.src}</span></td>
+                      <td>
+                        <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: 13 }}>{a.def}</div>
+                        <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{a.sub}</div>
+                      </td>
+                      <td>
+                        <span style={{ background: a.score >= 80 ? 'var(--red-dim)' : 'var(--yellow-dim)', color: a.score >= 80 ? 'var(--red)' : 'var(--yellow)', border: `1px solid ${a.score >= 80 ? 'rgba(239,68,68,.3)' : 'rgba(245,158,11,.3)'}`, padding: '2px 10px', borderRadius: 6, fontWeight: 700, fontSize: 13, display: 'inline-block' }}>
+                          {a.score}
+                        </span>
+                      </td>
+                      <td>
+                        <span style={{ background: `${statC}15`, color: statC, border: `1px solid ${statC}40`, padding: '3px 10px', borderRadius: 100, fontSize: 10, fontWeight: 700 }}>
+                          {a.status}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+                {paginatedAlerts.length === 0 && (
+                  <tr>
+                    <td colSpan={6} style={{ textAlign: 'center', padding: '20px', color: 'var(--text-muted)' }}>No alerts found in this view.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ padding: '12px clamp(12px, 3vw, 20px)', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--text-muted)', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
             <span>Showing {(safePage - 1) * 5 + 1} to {Math.min(safePage * 5, filteredAlerts.length)} of {filteredAlerts.length} alerts</span>
             <div style={{ display: 'flex', gap: 16 }}>
               <span onClick={() => setPage(p => Math.max(1, p - 1))} style={{ cursor: 'pointer', color: safePage > 1 ? 'var(--blue-light)' : 'var(--text-secondary)' }}>PREVIOUS</span>
