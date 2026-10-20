@@ -43,6 +43,21 @@ export default function MarketingLayout({ children }) {
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMobileOpen(false), [pathname]);
 
+  // Lock body scroll and set active class when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.classList.add('mobile-menu-active');
+    } else {
+      document.body.style.overflow = '';
+      document.body.classList.remove('mobile-menu-active');
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.classList.remove('mobile-menu-active');
+    };
+  }, [mobileOpen]);
+
   // Scroll-reveal observer - re-runs on route change
   useEffect(() => {
     // Small delay to let React finish rendering new page content
@@ -187,11 +202,16 @@ export default function MarketingLayout({ children }) {
 
         .mobile-menu {
           position: fixed;
-          inset: 0;
-          z-index: 9999;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100dvh;
+          max-height: 100dvh;
+          z-index: 99999;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
           opacity: 0;
           pointer-events: none;
           transform: translateY(-8px);
@@ -219,12 +239,22 @@ export default function MarketingLayout({ children }) {
           transform: translateY(0);
         }
 
+        /* Hide floating chatbot when mobile menu is open */
+        body.mobile-menu-active .floating-chatbot-btn {
+          display: none !important;
+        }
+
         .clean-menu-header {
+          position: sticky;
+          top: 0;
+          z-index: 10;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: max(16px, env(safe-area-inset-top, 16px)) 20px 14px;
+          padding: max(14px, env(safe-area-inset-top, 14px)) 20px 14px;
           border-bottom: 1px solid var(--border-light);
+          background: inherit;
+          backdrop-filter: blur(20px);
           flex-shrink: 0;
         }
 
@@ -250,10 +280,10 @@ export default function MarketingLayout({ children }) {
 
         .clean-menu-body {
           flex: 1;
-          padding: 10px 20px;
+          padding: 8px 20px 24px;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          gap: 20px;
         }
 
         .clean-nav-list {
@@ -265,7 +295,7 @@ export default function MarketingLayout({ children }) {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 14px 6px;
+          padding: 13px 4px;
           border-bottom: 1px solid var(--border-light);
           text-decoration: none;
           color: var(--text-primary);
@@ -278,7 +308,7 @@ export default function MarketingLayout({ children }) {
 
         .clean-nav-label {
           font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-          font-size: 19px;
+          font-size: 18px;
           font-weight: 600;
           letter-spacing: -0.02em;
           transition: color 0.2s;
@@ -286,13 +316,13 @@ export default function MarketingLayout({ children }) {
 
         .clean-nav-arrow {
           color: var(--text-muted);
-          opacity: 0.45;
+          opacity: 0.4;
           transition: transform 0.2s, opacity 0.2s, color 0.2s;
         }
 
         .clean-nav-row:hover,
         .clean-nav-row.active {
-          padding-left: 10px;
+          padding-left: 8px;
         }
 
         .clean-nav-row:hover .clean-nav-label,
@@ -307,27 +337,20 @@ export default function MarketingLayout({ children }) {
           color: #8b5cf6;
         }
 
-        .clean-menu-footer {
-          padding: 14px 20px max(20px, env(safe-area-inset-bottom, 20px));
-          border-top: 1px solid var(--border-light);
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          flex-shrink: 0;
-        }
-
         .clean-menu-cta-group {
           display: flex;
+          flex-direction: column;
           gap: 10px;
+          margin-top: 6px;
         }
 
         .clean-btn-primary {
-          flex: 1;
-          height: 44px;
+          width: 100%;
+          height: 46px;
           border-radius: 10px;
           background: linear-gradient(135deg, #7c3aed, #4f46e5);
           color: #ffffff !important;
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -335,6 +358,7 @@ export default function MarketingLayout({ children }) {
           text-decoration: none;
           box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
           transition: all 0.2s;
+          box-sizing: border-box;
         }
 
         .clean-btn-primary:active {
@@ -342,19 +366,20 @@ export default function MarketingLayout({ children }) {
         }
 
         .clean-btn-secondary {
-          width: 90px;
+          width: 100%;
           height: 44px;
           border-radius: 10px;
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid var(--border-light);
           color: var(--text-primary) !important;
-          font-size: 14px;
+          font-size: 14.5px;
           font-weight: 500;
           display: flex;
           align-items: center;
           justify-content: center;
           text-decoration: none;
           transition: all 0.2s;
+          box-sizing: border-box;
         }
 
         [data-theme="light"] .clean-btn-secondary {
@@ -370,6 +395,8 @@ export default function MarketingLayout({ children }) {
           gap: 6px;
           font-size: 11.5px;
           color: var(--text-muted);
+          padding-top: 2px;
+          padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
         }
 
         .clean-status-dot {
@@ -612,7 +639,7 @@ export default function MarketingLayout({ children }) {
           </div>
         </div>
 
-        {/* Clean Nav Links List */}
+        {/* Clean Nav Body: Links + CTAs + Status */}
         <div className="clean-menu-body">
           <div className="clean-nav-list">
             {NAV_LINKS.map(l => (
@@ -627,18 +654,16 @@ export default function MarketingLayout({ children }) {
               </Link>
             ))}
           </div>
-        </div>
 
-        {/* Clean Bottom CTAs */}
-        <div className="clean-menu-footer">
           <div className="clean-menu-cta-group">
             <Link to="/login" onClick={() => setMobileOpen(false)} className="clean-btn-primary">
               Get Started Free →
             </Link>
             <Link to="/login" onClick={() => setMobileOpen(false)} className="clean-btn-secondary">
-              Sign In
+              Sign In to Console
             </Link>
           </div>
+
           <div className="clean-status-bar">
             <span className="clean-status-dot" />
             <span>Systems operational • 99.99% SLA</span>
