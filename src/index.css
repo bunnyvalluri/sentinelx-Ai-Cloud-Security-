@@ -2723,7 +2723,8 @@ code,
   gap: 6px;
   flex: 1;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .marketing-nav-right {
@@ -4675,8 +4676,12 @@ img, svg, video, canvas {
     padding: 0 16px !important;
   }
 
-  .marketing-nav-links,
-  .marketing-nav-right {
+  .marketing-nav-links {
+    display: none !important;
+  }
+
+  .marketing-nav-right .sign-in-link,
+  .marketing-nav-right .get-demo-btn {
     display: none !important;
   }
 
@@ -4853,4 +4858,21 @@ img, svg, video, canvas {
     bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
     right: max(16px, env(safe-area-inset-right, 16px)) !important;
   }
-}
+}
+
+/* ── 11. NETLIFY BADGE & DRAWER SUPPRESSION ── */
+[data-netlify-badge],
+.netlify-badge,
+#netlify-badge,
+iframe[src*="netlify"],
+div[data-testid*="netlify"],
+div[class*="netlify-badge"],
+a[href*="netlify.com"][class*="badge"],
+[id*="netlify-feedback"],
+[class*="netlify-feedback"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+

@@ -2,7 +2,7 @@
 
 > Real-time AI-powered cloud security monitoring, threat detection, compliance and user access management — built for enterprise teams.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-sentinelx--platform.netlify.app-00C7B7?style=for-the-badge&logo=netlify)](https://sentinelx-platform.netlify.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-sentinelx--platforms.netlify.app-00C7B7?style=for-the-badge&logo=netlify)](https://sentinelx-platforms.netlify.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Bunnyvalluri-181717?style=for-the-badge&logo=github)](https://github.com/Bunnyvalluri/sentinelx-Ai-Cloud-Security-)
 
 ---
@@ -11,7 +11,7 @@
 
 | | URL |
 |---|---|
-| **Production** | https://sentinelx-platform.netlify.app |
+| **Production** | https://sentinelx-platforms.netlify.app |
 | **GitHub Repo** | https://github.com/Bunnyvalluri/sentinelx-Ai-Cloud-Security- |
 
 ---

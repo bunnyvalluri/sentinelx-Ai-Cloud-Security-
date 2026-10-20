@@ -4,13 +4,13 @@ import { useTheme } from '../context/ThemeContext';
 import Logo from './common/Logo';
 
 const NAV_LINKS = [
-  { label: 'Features', to: '/features' },
-  { label: 'Integrations', to: '/integrations' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'Roadmap', to: '/roadmap' },
-  { label: 'Docs', to: '/docs' },
-  { label: 'Blog', to: '/blog' },
-  { label: 'About', to: '/about' },
+  { label: 'Features', to: '/features', icon: '⚡', tag: 'AI Threat Intelligence' },
+  { label: 'Integrations', to: '/integrations', icon: '🔗', tag: 'AWS, GCP, Azure, K8s' },
+  { label: 'Pricing', to: '/pricing', icon: '💎', tag: 'Plans for every team' },
+  { label: 'Roadmap', to: '/roadmap', icon: '🗺️', tag: 'Latest releases & Q3' },
+  { label: 'Docs', to: '/docs', icon: '📚', tag: 'SDKs & API Reference' },
+  { label: 'Blog', to: '/blog', icon: '✍️', tag: 'Cybersecurity research' },
+  { label: 'About', to: '/about', icon: '🛡️', tag: 'Our mission & team' },
 ];
 
 const FOOTER_COLS = [
@@ -186,15 +186,198 @@ export default function MarketingLayout({ children }) {
         }
 
         .mobile-menu {
-          position: fixed; inset: 0; z-index: 200;
-          background: var(--bg-glass);
-          backdrop-filter: blur(32px) saturate(180%);
-          display: flex; flex-direction: column; align-items: center; justify-content: center;
-          opacity: 0; pointer-events: none;
-          transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1);
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(-8px);
+          transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+          box-sizing: border-box;
+          backdrop-filter: blur(28px) saturate(190%);
+          -webkit-backdrop-filter: blur(28px) saturate(190%);
         }
+
+        [data-theme="dark"] .mobile-menu {
+          background: rgba(9, 9, 13, 0.98);
+          color: #f4f4f5;
+        }
+
+        [data-theme="light"] .mobile-menu {
+          background: rgba(255, 255, 255, 0.99);
+          color: #09090b;
+        }
+
         .mobile-menu.open {
-          opacity: 1; pointer-events: all;
+          opacity: 1;
+          pointer-events: all;
+          transform: translateY(0);
+        }
+
+        .clean-menu-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: max(16px, env(safe-area-inset-top, 16px)) 20px 14px;
+          border-bottom: 1px solid var(--border-light);
+          flex-shrink: 0;
+        }
+
+        .clean-menu-close {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: transparent;
+          border: 1px solid var(--border-light);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text-secondary);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .clean-menu-close:hover {
+          background: rgba(244, 63, 94, 0.1);
+          color: #f43f5e;
+          border-color: rgba(244, 63, 94, 0.3);
+        }
+
+        .clean-menu-body {
+          flex: 1;
+          padding: 10px 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .clean-nav-list {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .clean-nav-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 6px;
+          border-bottom: 1px solid var(--border-light);
+          text-decoration: none;
+          color: var(--text-primary);
+          transition: all 0.2s ease;
+        }
+
+        .clean-nav-row:last-child {
+          border-bottom: none;
+        }
+
+        .clean-nav-label {
+          font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 19px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          transition: color 0.2s;
+        }
+
+        .clean-nav-arrow {
+          color: var(--text-muted);
+          opacity: 0.45;
+          transition: transform 0.2s, opacity 0.2s, color 0.2s;
+        }
+
+        .clean-nav-row:hover,
+        .clean-nav-row.active {
+          padding-left: 10px;
+        }
+
+        .clean-nav-row:hover .clean-nav-label,
+        .clean-nav-row.active .clean-nav-label {
+          color: #8b5cf6;
+        }
+
+        .clean-nav-row:hover .clean-nav-arrow,
+        .clean-nav-row.active .clean-nav-arrow {
+          transform: translateX(4px);
+          opacity: 1;
+          color: #8b5cf6;
+        }
+
+        .clean-menu-footer {
+          padding: 14px 20px max(20px, env(safe-area-inset-bottom, 20px));
+          border-top: 1px solid var(--border-light);
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          flex-shrink: 0;
+        }
+
+        .clean-menu-cta-group {
+          display: flex;
+          gap: 10px;
+        }
+
+        .clean-btn-primary {
+          flex: 1;
+          height: 44px;
+          border-radius: 10px;
+          background: linear-gradient(135deg, #7c3aed, #4f46e5);
+          color: #ffffff !important;
+          font-size: 14px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+          transition: all 0.2s;
+        }
+
+        .clean-btn-primary:active {
+          transform: scale(0.98);
+        }
+
+        .clean-btn-secondary {
+          width: 90px;
+          height: 44px;
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid var(--border-light);
+          color: var(--text-primary) !important;
+          font-size: 14px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          transition: all 0.2s;
+        }
+
+        [data-theme="light"] .clean-btn-secondary {
+          background: #f4f4f5;
+          border-color: #e4e4e7;
+          color: #18181b !important;
+        }
+
+        .clean-status-bar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          font-size: 11.5px;
+          color: var(--text-muted);
+        }
+
+        .clean-status-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #10b981;
+          box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
         }
 
         .scroll-progress-bar {
@@ -204,6 +387,115 @@ export default function MarketingLayout({ children }) {
           background: linear-gradient(90deg, #7c3aed, #38bdf8, #10b981);
           z-index: 1001;
           transition: width 0.1s linear;
+        }
+
+        .marketing-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 clamp(16px, 3.5vw, 48px);
+          height: 68px;
+          gap: 16px;
+        }
+
+        .marketing-nav-links {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex: 1;
+          justify-content: center;
+          flex-wrap: nowrap !important;
+          white-space: nowrap !important;
+        }
+
+        .marketing-hamburger {
+          display: none;
+          background: rgba(255,255,255,0.06);
+          border: 1px solid var(--border-light);
+          border-radius: 9px;
+          width: 40px;
+          height: 40px;
+          padding: 0;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          gap: 5px;
+          cursor: pointer;
+          flex-shrink: 0;
+          transition: all 0.2s;
+        }
+
+        .marketing-hamburger span {
+          display: block;
+          width: 20px;
+          height: 2px;
+          background: var(--text-primary);
+          border-radius: 2px;
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .marketing-hamburger.sidebar-open span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        .marketing-hamburger.sidebar-open span:nth-child(2) {
+          opacity: 0;
+          transform: scaleX(0);
+        }
+        .marketing-hamburger.sidebar-open span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
+        }
+
+        @media (max-width: 1080px) {
+          .marketing-nav-links {
+            display: none !important;
+          }
+          .marketing-hamburger {
+            display: flex !important;
+          }
+          .sign-in-link {
+            display: none !important;
+          }
+        }
+
+        .announcement-bar {
+          white-space: nowrap;
+          overflow: hidden;
+        }
+        .announcement-bar a {
+          white-space: nowrap !important;
+          flex-shrink: 0;
+        }
+
+        [data-theme="light"] .announcement-bar {
+          background: linear-gradient(90deg, rgba(124,58,237,0.08) 0%, rgba(99,102,241,0.06) 50%, rgba(56,189,248,0.06) 100%) !important;
+          border-bottom-color: rgba(124,58,237,0.12) !important;
+          color: #334155 !important;
+        }
+        [data-theme="light"] .announcement-bar a {
+          color: #6d28d9 !important;
+        }
+
+        @media (max-width: 768px) {
+          .announcement-bar {
+            display: none !important;
+          }
+          .marketing-nav {
+            height: 60px;
+            padding: 0 12px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .get-demo-btn {
+            padding: 7px 14px;
+            font-size: 12.5px;
+          }
+        }
+
+        @media (max-width: 440px) {
+          .get-demo-btn {
+            display: none !important;
+          }
         }
       `}</style>
 
@@ -294,66 +586,62 @@ export default function MarketingLayout({ children }) {
 
         {/* Mobile hamburger */}
         <button
-          className={`hamburger-btn ${mobileOpen ? 'sidebar-open' : ''}`}
+          className={`marketing-hamburger ${mobileOpen ? 'sidebar-open' : ''}`}
           onClick={() => setMobileOpen(o => !o)}
           aria-label="Toggle menu"
-          style={{ display: 'flex' }}
         >
           <span /><span /><span />
         </button>
       </nav>
 
-      {/* ── Mobile Menu ── */}
+      {/* ── Senior UI/UX Clean Mobile Navigation ── */}
       <div className={`mobile-menu ${mobileOpen ? 'open' : ''}`}>
-        {/* Close button */}
-        <button onClick={() => setMobileOpen(false)} style={{
-          position: 'absolute', top: 24, right: 24,
-          width: 48, height: 48, borderRadius: '50%',
-          background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 18, color: 'var(--text-secondary)', cursor: 'pointer',
-          transition: 'all 0.2s',
-        }}
-          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(244,63,94,0.12)'; e.currentTarget.style.color = '#f43f5e'; }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
-        >✕</button>
+        {/* Top Header */}
+        <div className="clean-menu-header">
+          <Link to="/" onClick={() => setMobileOpen(false)} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+            <Logo layout="horizontal" size={26} glow={true} />
+          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <button className="theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
+              <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
+              <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
+            </button>
+            <button className="clean-menu-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+        </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center', textAlign: 'center' }}>
-          {NAV_LINKS.map((l, i) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              onClick={() => setMobileOpen(false)}
-              style={{
-                display: 'block',
-                padding: '14px 32px',
-                fontSize: 32,
-                fontWeight: 800,
-                fontFamily: 'Outfit, sans-serif',
-                letterSpacing: '-0.5px',
-                color: pathname === l.to ? 'var(--blue-light)' : 'var(--text-primary)',
-                textDecoration: 'none',
-                opacity: mobileOpen ? 1 : 0,
-                transform: mobileOpen ? 'translateY(0)' : 'translateY(20px)',
-                transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.05}s`,
-                borderRadius: 12,
-              }}
-              onMouseEnter={e => { e.currentTarget.style.color = '#a78bfa'; }}
-              onMouseLeave={e => { e.currentTarget.style.color = pathname === l.to ? 'var(--blue-light)' : 'var(--text-primary)'; }}
-            >{l.label}</Link>
-          ))}
-          <div style={{
-            marginTop: 48,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 20,
-            width: '100%',
-            opacity: mobileOpen ? 1 : 0,
-            transition: 'all 0.5s ease 0.4s'
-          }}>
-            <Link to="/login" onClick={() => setMobileOpen(false)} className="btn btn-primary" style={{ width: '100%', maxWidth: 300, padding: '17px', fontSize: 17, borderRadius: 100, textAlign: 'center' }}>Get Started Free</Link>
-            <Link to="/login" onClick={() => setMobileOpen(false)} style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-secondary)', textDecoration: 'none' }}>Sign In</Link>
+        {/* Clean Nav Links List */}
+        <div className="clean-menu-body">
+          <div className="clean-nav-list">
+            {NAV_LINKS.map(l => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setMobileOpen(false)}
+                className={`clean-nav-row ${pathname === l.to ? 'active' : ''}`}
+              >
+                <span className="clean-nav-label">{l.label}</span>
+                <svg className="clean-nav-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Clean Bottom CTAs */}
+        <div className="clean-menu-footer">
+          <div className="clean-menu-cta-group">
+            <Link to="/login" onClick={() => setMobileOpen(false)} className="clean-btn-primary">
+              Get Started Free →
+            </Link>
+            <Link to="/login" onClick={() => setMobileOpen(false)} className="clean-btn-secondary">
+              Sign In
+            </Link>
+          </div>
+          <div className="clean-status-bar">
+            <span className="clean-status-dot" />
+            <span>Systems operational • 99.99% SLA</span>
           </div>
         </div>
       </div>

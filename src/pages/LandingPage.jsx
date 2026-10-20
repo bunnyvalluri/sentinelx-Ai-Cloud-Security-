@@ -334,6 +334,54 @@ export default function LandingPage() {
             animation: shimmer 5s linear infinite;
           }
 
+          .hero-pill-mobile { display: none; }
+          @media (max-width: 540px) {
+            .hero-pill-desktop { display: none !important; }
+            .hero-pill-mobile { display: inline !important; }
+          }
+
+          .hero-h1-main {
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+          }
+
+          [data-theme="light"] .hero-h1-main {
+            background: linear-gradient(180deg, #09090b 0%, #18181b 60%, #3f3f46 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+          }
+
+          .hero-h1-gradient {
+            background: linear-gradient(90deg, #a78bfa 0%, #38bdf8 50%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 28px rgba(139,92,246,0.3));
+            display: inline-block;
+          }
+
+          [data-theme="light"] .hero-h1-gradient {
+            background: linear-gradient(90deg, #7c3aed 0%, #0284c7 50%, #0d9488 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            filter: drop-shadow(0 2px 14px rgba(124,58,237,0.2)) !important;
+          }
+
+          [data-theme="light"] .hero-pill-badge {
+            background: rgba(255, 255, 255, 0.92) !important;
+            border-color: rgba(124, 58, 237, 0.3) !important;
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.12) !important;
+          }
+
+          [data-theme="light"] .hero-pill-badge span:not([style*="linear-gradient"]) {
+            color: #334155 !important;
+          }
+
           .btn-hero-primary {
             display: inline-flex;
             align-items: center;
@@ -679,22 +727,26 @@ export default function LandingPage() {
                 backdropFilter: 'blur(12px)',
                 boxShadow: '0 4px 20px rgba(139, 92, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
                 transition: 'all 0.25s ease',
+                maxWidth: '92vw',
+                whiteSpace: 'nowrap',
               }}
             >
               <span style={{
                 background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
                 color: '#fff',
-                padding: '3px 10px',
+                padding: '3px 9px',
                 borderRadius: 100,
                 fontSize: 10,
                 fontWeight: 800,
                 letterSpacing: '0.6px',
+                flexShrink: 0,
                 boxShadow: '0 0 12px rgba(139, 92, 246, 0.4)',
               }}>NEW 4.0</span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>
-                CEREBRO AI Autonomous Cloud Defense is Live
+              <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <span className="hero-pill-desktop">CEREBRO AI Autonomous Cloud Defense is Live</span>
+                <span className="hero-pill-mobile">CEREBRO AI Defense is Live</span>
               </span>
-              <span style={{ opacity: 0.6, fontSize: 13 }}>→</span>
+              <span style={{ opacity: 0.6, fontSize: 13, flexShrink: 0 }}>→</span>
             </div>
           </div>
 
@@ -711,24 +763,11 @@ export default function LandingPage() {
             maxWidth: 920,
             margin: '0 auto 22px',
           }}>
-            <span style={{
-              background: 'linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              display: 'inline-block',
-            }}>
+            <span className="hero-h1-main">
               Security Infrastructure
             </span>
             <br />
-            <span style={{
-              background: 'linear-gradient(90deg, #a78bfa 0%, #38bdf8 50%, #2dd4bf 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              filter: 'drop-shadow(0 0 28px rgba(139,92,246,0.3))',
-              display: 'inline-block',
-            }}>
+            <span className="hero-h1-gradient">
               for Modern Teams
             </span>
           </h1>
@@ -745,7 +784,7 @@ export default function LandingPage() {
             textAlign: 'center',
           }}>
             Monitor, detect, and automatically remediate threats across your entire cloud stack.
-            Powered by <strong style={{ color: '#fff', fontWeight: 600 }}>CEREBRO AI</strong> — processing 1.2B+ events/hour.
+            Powered by <strong style={{ color: 'var(--text-primary)', fontWeight: 600 }}>CEREBRO AI</strong> — processing 1.2B+ events/hour.
           </p>
 
           {/* CTAs */}
