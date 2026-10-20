@@ -550,18 +550,20 @@ export default function MarketingLayout({ children }) {
         className="marketing-nav"
         style={{
           position: 'sticky', top: 0, zIndex: 100,
-          borderBottom: scrolled
-            ? (theme === 'light' ? '1px solid rgba(109,40,217,0.10)' : '1px solid rgba(255,255,255,0.07)')
-            : '1px solid transparent',
-          backdropFilter: scrolled ? 'blur(24px) saturate(200%)' : 'blur(12px)',
-          WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(200%)' : 'blur(12px)',
+          borderBottom: theme === 'light'
+            ? (scrolled ? '1px solid rgba(0, 0, 0, 0.12)' : '1px solid rgba(0, 0, 0, 0.06)')
+            : (scrolled ? '1px solid rgba(255, 255, 255, 0.10)' : '1px solid rgba(255, 255, 255, 0.05)'),
+          backdropFilter: 'blur(24px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
           background: theme === 'light'
-            ? (scrolled ? 'rgba(255,255,255,0.96)' : 'rgba(249,248,255,0.80)')
-            : (scrolled ? 'rgba(6,6,12,0.92)' : 'rgba(6,6,12,0.60)'),
-          transition: 'all 0.35s cubic-bezier(0.16,1,0.3,1)',
+            ? (scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.90)')
+            : (scrolled ? 'rgba(8, 8, 14, 0.95)' : 'rgba(8, 8, 14, 0.75)'),
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           boxShadow: scrolled
-            ? (theme === 'light' ? '0 4px 24px rgba(109,40,217,0.08)' : '0 4px 40px rgba(0,0,0,0.3)')
-            : 'none',
+            ? (theme === 'light'
+                ? '0 4px 20px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04)'
+                : '0 4px 30px rgba(0, 0, 0, 0.5)')
+            : (theme === 'light' ? '0 1px 2px rgba(0, 0, 0, 0.02)' : 'none'),
         }}>
 
         {/* Logo */}
@@ -596,29 +598,29 @@ export default function MarketingLayout({ children }) {
           ))}
         </div>
 
-        {/* Desktop right */}
-        <div className="marketing-nav-right">
+        {/* Right side controls (theme toggle always visible; hamburger on mobile) */}
+        <div className="marketing-nav-right" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Link to="/login" className="sign-in-link">Sign In</Link>
           <button className="theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
             <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
             <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
           </button>
-          <Link to="/login" style={{ textDecoration: 'none' }}>
+          <Link to="/login" className="get-demo-link" style={{ textDecoration: 'none' }}>
             <button className="get-demo-btn">
               Get a Demo
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </button>
           </Link>
-        </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className={`marketing-hamburger ${mobileOpen ? 'sidebar-open' : ''}`}
-          onClick={() => setMobileOpen(o => !o)}
-          aria-label="Toggle menu"
-        >
-          <span /><span /><span />
-        </button>
+          {/* Mobile hamburger */}
+          <button
+            className={`marketing-hamburger ${mobileOpen ? 'sidebar-open' : ''}`}
+            onClick={() => setMobileOpen(o => !o)}
+            aria-label="Toggle menu"
+          >
+            <span /><span /><span />
+          </button>
+        </div>
       </nav>
 
       {/* ── Senior UI/UX Clean Mobile Navigation ── */}

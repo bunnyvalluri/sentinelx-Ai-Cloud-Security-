@@ -2893,8 +2893,10 @@ code,
     display: none;
   }
 
-  .marketing-nav-right {
-    display: none;
+  .marketing-nav-right .sign-in-link,
+  .marketing-nav-right .get-demo-link,
+  .marketing-nav-right .get-demo-btn {
+    display: none !important;
   }
 
   .marketing-hamburger {
@@ -3462,7 +3464,9 @@ code,
     display: none !important;
   }
 
-  .marketing-nav-right {
+  .marketing-nav-right .sign-in-link,
+  .marketing-nav-right .get-demo-link,
+  .marketing-nav-right .get-demo-btn {
     display: none !important;
   }
 
